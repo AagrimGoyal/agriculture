@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture Project - SilverLine Prestige School</title>
+  <link rel="stylesheet" href="index.css">
+  <script> // Cart Array to Store Selected Products
+    let cart = [];
+    let totalPrice = 0;
+
+    // Function to Add a Product to the Cart
+    function addToCart(productName, productPrice) {
+      const existingProduct = cart.find((item) => item.name === productName);
+
+      if (existingProduct) {
+        existingProduct.quantity += 1; // Increase quantity if product already in cart
+      } else {
+        cart.push({name: productName, price: productPrice, quantity: 1}); // Add new product
+      }
+
+      updateCart();
+    }
+
+    // Function to Update Cart Display
+    function updateCart() {
+      const cartContent = document.getElementById('cart-content');
+      const cartTotal = document.getElementById('cart-total');
+      cartContent.innerHTML = '';
+
+      totalPrice = 0;
+
+      cart.forEach((item, index) => {
+        const productTotal = item.price * item.quantity;
+        totalPrice += productTotal;
+
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+                        <strong>${item.name}</strong> - $${item.price} x ${item.quantity} 
+                        = $${productTotal}
+                        <button class="btn-small" onclick="changeQuantity(${index}, -1)">-</button>
+                        <button class="btn-small" onclick="changeQuantity(${index}, 1)">+</button>
+                        <button class="btn-small" onclick="removeFromCart(${index})">Remove</button>
+                    `;
+        cartContent.appendChild(listItem);
+      });
+
+      cartTotal.textContent = `Total: $${totalPrice}`;
+    }
+
+    // Function to Change Product Quantity
+    function changeQuantity(index, change) {
+      const product = cart[index];
+      product.quantity += change;
+
+      if (product.quantity <= 0) {
+        cart.splice(index, 1); // Remove product if quantity is 0
+      }
+
+      updateCart();
+    }
+
+    // Function to Remove a Product from the Cart
+    function removeFromCart(index) {
+      cart.splice(index, 1); // Remove product from cart
+      updateCart();
+    }
+
+    // Function to Proceed to Checkout
+    function proceedToCheckout() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+
+      document.getElementById('payment-section').style.display = 'block';
+      alert('Please select a payment method to complete your purchase.');
+    }
+
+    // Function to Submit Payment
+    function submitPayment(method) {
+      alert(`You have selected ${method} payment method. Total Amount: $${totalPrice}`);
+      cart = []; // Clear cart after payment
+      updateCart();
+      document.getElementById('payment-section').style.display = 'none';
+    }
+  </script>
+</head>
+
+<body class="background">
+  <header>
+    <div class="school">
+      <img
+        src="https://media.licdn.com/dms/image/v2/D4D0BAQHnHaZGeNr0fA/company-logo_200_200/company-logo_200_200/0/1691732037049?e=2147483647&v=beta&t=BM_XDflmeJTUvPdl44fW7O77ypek4rYzBFRpistssJs"
+        alt="School Logo" class="logo">
+      <h1 class="team-name">Silver Line Prestige School</h1>
+    </div>
+
+
+    <div class="logo-team">
+      <img src="https://i.pinimg.com/736x/2b/4f/39/2b4f3984e09c1dae571026e4ced1001b.jpg" alt="Team Logo" class="logo">
+      <h1>Agriculture Team</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="Contact_US.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Environment Section -->
+    <section id="environment" class="section animated-section">
+      <h2>How Can Agriculture Affect the Environment?</h2>
+      <ul>
+        <li><strong>Promoting Sustainable Practices:</strong> Encourages organic farming, composting, and crop
+          rotation, reducing chemical usage and improving soil health.</li>
+        <li><strong>Conserving Biodiversity:</strong> Preserves local species and creates wildlife habitats,
+          promoting ecosystem balance.</li>
+        <li><strong>Reducing Carbon Footprint:</strong> Grows carbon-absorbing plants, reduces transportation
+          emissions by supporting local farming.</li>
+        <li><strong>Water Conservation:</strong> Implements drip irrigation and rainwater harvesting to combat
+          water scarcity in farming.</li>
+        <li><strong>Educational Awareness:</strong> Engages students in learning sustainable farming and
+          environmental care.</li>
+      </ul>
+    </section>
+
+    <!-- Project Section -->
+    <section id="project" class="section animated-section">
+      <h2>Our Ongoing Projects</h2>
+      <p>Our agriculture team is constantly working on new and innovative projects. We focus on modern farming
+        techniques, environmentally-friendly methods, and sustainable products. If you would like to support or
+        learn more about our current projects, visit our Projects page.</p>
+      <a href="products.html" class="btn">Explore Our Projects</a>
+    </section>
+
+    <!-- Google Form Suggestion Section -->
+    <section id="suggestions" class="section animated-section">
+      <h2>We Value Your Feedback</h2>
+      <p>If you have any suggestions or are interested in buying our products, please feel free to fill out this
+        Google Form. We appreciate your input and will get back to you as soon as possible!</p>
+      <a href="Contact_US.html" class="btn">Feedback Form </a>
+    </section>
+
+    <!-- Bibliography Section -->
+    <section id="bibliography" class="section animated-section">
+      <h2>Bibliography</h2>
+      <p>We have gathered information from trusted sources to provide accurate and up-to-date details on
+        sustainable agriculture practices. Please check our bibliography page for a list of sources.</p>
+      <ul>
+        <a href="https://replit.com/~" class="btn">Replit</a> <a href="https://github.com/" class="btn">Git
+          Hub</a>
+        <a href="https://www.brandcrowd.com/logo-maker" class="btn">Logo Maker</a>
+        <a href="https://images.google.com/" class="btn">Google Images</a>
+        <a href="https://www.google.com/?safe=active&ssui=on" class="btn">Google</a>
+      </ul>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us" class="section animated-section">
+      <h2>About Us</h2>
+      <p>We are a passionate team working towards promoting sustainable agriculture. Our team includes:</p>
+      <ul>
+
+        <li><strong>Durva Garg</strong> - Team Leader</li>
+        <li><strong>Gaurav Bisht</strong> - Team Leader</li>
+        <li><strong>Aagrim Goyal</strong> - Team Member</li>
+        <li><strong> Shreyansh </strong> - Team Member</li>
+        <li><strong> Satti Jayasri Meenakshi </strong> - Team Member</li>
+        <li><strong>Aditya Garg</strong> - Team Member </li>
+        <li><strong>Akshita Goel</strong> - Team Member</li>
+        <li><strong> Aadhawan Sengar</strong> - Team Member</li>
+        <li><strong> Shruti Garg </strong> - Team Member</li>
+        <li><strong> Pratyush Chauhan </strong> - Team Member</li>
+      </ul>
+    </section>
+
+    <!-- Cart Section -->
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 SilverLine Prestige School. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
